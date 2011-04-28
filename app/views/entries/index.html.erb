@@ -1,0 +1,59 @@
+<div class="span-17 colborder" id="entry_menu">
+  <br>
+  <br>
+  <hr/>
+  <h4>Status :<%= @today%> </h4>
+  <p>
+    Total Points: <i><%= @points%>/1000 </i>&nbsp <%= 1000 - @points  %> left at <%= (1000 - @points ).to_i/((@end_date.day - @today.day) ) %> per day
+    <% width = ((400.0/1000.0)*@points.to_f).to_i %>
+    <div style="width:400px;height:20px;background-color:#cccccc;"><div style="width:<%=width%>;height:20px;background-color:#141ccc;"></div></div>
+  </p>
+  <p>
+  <% j = 0 %>
+  <% keys = @points_by_date.keys.sort{|a,b|  b <=> a} %>
+  <% keys.each do |date| %>
+  <% points = @points_by_date[date] %>  
+  <label><%= date %>:</label> <i><%= points %></i> &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;
+  <% j = j + 1 %>
+  <% if j==5 %>
+  <% j = 0 %>
+  <br/>
+  <% end %>
+  <% end %>
+  </p>
+  <hr/>
+  
+</div>
+
+<div class="span-17 colborder" >
+  <% grouped_entries =  @entries.group_by{|e| e.entry_for} %>
+  <% keys = grouped_entries.keys.sort{|a,b| b<=>a} %>
+<% keys.each do |key| %>
+
+<p>
+  <% entries = grouped_entries[key] %>
+  <% points_for_the_day = entries.map{|e| e.plan_item.points.to_i * e.quantity.to_i * (e.plan_item.positiveconnotation ?  1 : -1 )}.inject{|a,b| a + b} %>
+<h4 class="quiet"><%= key %>: Total points <i><%= points_for_the_day %></i></h4>
+<table style="width:640px">
+  <tr>
+    <th>Id</th>
+    <th>Plan</th>
+    <th>Date</th>
+    <th>Quantity</th>
+    <th>Actions</th>
+  </tr>
+
+  <% entries.each do |en| %>
+  <tr>
+  <td><%= en.id %></td>
+  <td><%= en.entry_for%></td>
+  <td><%= en.quantity %></td>
+  <td><%= link_to( "edit", edit_goal_entry_path(@goal,en))%></td>
+  </tr>
+  <% end %>
+</table>
+</p>
+<% end %>
+
+<hr />
+</div>

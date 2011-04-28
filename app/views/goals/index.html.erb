@@ -1,0 +1,25 @@
+<div class="span-17 colborder" id="goal_menu">
+  <h2 class="quiet"> Goals</h2>
+  <table style="width:640px">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Points</th>
+      <th>Action</th>
+    </tr>
+    <% @goals.each do |gl| %>
+    <tr>
+      <td><%= gl.id%></td>
+      <td><%= gl.name%></td>
+      <td><%= gl.description%></td>      
+      <td><%= gl.start_date%></td>
+      <td><%= gl.end_date%></td>
+      <td><%= gl.total_points%></td>
+      <td><%= link_to "Create Plan Item", new_goal_plan_item_path(gl)%></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

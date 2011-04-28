@@ -1,0 +1,30 @@
+<div class="container "> 
+
+  <br>
+  <br>
+  <hr/>
+  <div class="span-12"> 
+          <% form_for @ent, {:url=>goal_entries_path(@goal), :method=>:post}  do |f| %>
+          <%= error_messages_for :entry %>
+          <fieldset> 
+            <legend class="quiet">Create An Entry</legend> 
+            <p>
+            <label>Plan</label><br>
+            <%= select("entry", "plan_item_id" , @plan_items.map{|u| [u.name, u.id]}) %>
+            </p>
+            <p>
+            <%= f.label :entry_for %><br>
+            <%= calendar_date_select_tag "entry[entry_for]"  %>
+            </p>
+            <p>
+              <label>Quantity</label><br>
+              <%= f.text_field :quantity %>
+            </p>
+            <p>
+              <%= submit_tag "submit" %>
+            </p>            
+          </fieldset>
+          <% end %>        
+      </div>
+</div>
+        

@@ -1,0 +1,26 @@
+<div class="span-17 colborder" id="entry_menu">
+
+  <br>
+  <br>
+<hr/>
+<table style="width:640px">
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Connotation</th>
+    <th>Points</th>
+    <th>Actions</th>
+  </tr>
+  <% @plan_items.each do |pi| %>
+  <tr>
+  <td><%= pi.id %></td>
+  <td><%= pi.name%></td>
+  <td><%= pi.description%></td>
+  <td><%= pi.positiveconnotation ? "Positive" : "Negative"%></td>
+  <td><%= pi.points %></td>
+  <td><%= link_to( "edit", edit_goal_plan_item_path(@goal,pi))%></td>
+  </tr>
+  <% end %>
+</table>
+</div>

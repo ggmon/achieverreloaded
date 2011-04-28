@@ -1,0 +1,35 @@
+
+<div class="container "> 
+  <%= link_to "Home", "/" %> | <%= link_to "Plan Items", plan_items_path %> |  <%= link_to "Entries", entries_path %> 
+  <br>
+  <br>
+  <hr> 
+  <div class="span-12"> 
+    <% form_for @ent, :entry, :url=>{:action => :update}  do |f| %>
+    <%= error_messages_for :entry %>
+    <fieldset> 
+      <legend>Create Entry</legend> 
+      <p>
+        <label>Plan</label><br>
+        <%= select("entry", "plan_item_id" , @plan_items.map{|u| [u.name, u.id]},:selected=>@ent.plan_item_id ) %>
+      </p>
+      <p>
+        <%= f.label :entry_for %><br>
+        <%= calendar_date_select_tag "entry[entry_for]", @ent.entry_for  %>
+      </p>
+      <p>
+        <label>Quantity</label><br>
+        <%= f.text_field :quantity %>
+      </p>
+
+      
+      <p>
+        <%= submit_tag "submit" %>
+        <%= link_to("cancel", entries_path ) %>
+      </p>
+      
+    </fieldset>
+    <% end %>        
+  </div>
+</div>
+
