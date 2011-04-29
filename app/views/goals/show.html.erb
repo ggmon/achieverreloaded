@@ -1,0 +1,27 @@
+<div class="span-17 colborder" id="entry_menu">
+  <br>
+  <br>
+  <hr/>
+  <h4>Status :<%= Date.today%> </h4>
+  <p>
+    Total Points: <i><%= @pointstaken%>/<%=@pointstobe%> </i>&nbsp <%= @pointstobe - @pointstaken  %>
+    left at <%= ((@pointstobe - @pointstaken ).to_i/((@goal.end_date - Date.today).day )).to_i %> per day
+    <% width = ((@pointstaken.to_f/@pointstobe.to_f)*@pointstobe.to_f).to_i %>
+    <div style="width:400px;height:20px;background-color:#cccccc;"><div style="width:<%=width%>;height:20px;background-color:#141ccc;"></div></div>
+  </p>
+  <p>
+  <% j = 0 %>
+  <% keys = @points_by_date.keys.sort{|a,b|  b <=> a} %>
+  <% keys.each do |date| %>
+  <% points = @points_by_date[date] %>  
+  <label><%= date %>:</label> <i><%= points %></i> &nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;
+  <% j = j + 1 %>
+  <% if j==5 %>
+  <% j = 0 %>
+  <br/>
+  <% end %>
+  <% end %>
+  </p>
+  <hr/>
+
+</div>

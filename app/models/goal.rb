@@ -4,7 +4,9 @@ class Goal < ActiveRecord::Base
   has_many :entries
 
   def total_points
-    @points = self.entries.all.map{|e| e.plan_item.points.to_i * e.quantity.to_i * (e.plan_item.positiveconnotation ?  1 : -1 )}.inject{|a,b| a + b}
+    points = self.entries.all.map{|e| e.plan_item.points.to_i * e.quantity.to_i * (e.plan_item.positiveconnotation ?  1 : -1 )}.inject{|a,b| a + b}
+    points = 0 if !points
+    points
   end
 
   def total_points_by_date
